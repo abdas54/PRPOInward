@@ -1,0 +1,54 @@
+{
+    "resources": [
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "controller/STOInvoiceOutward.controller.js"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "view/serialNoDetails.fragment.xml"
+        },
+        {
+            "name": "view/ROInward.fragment.xml"
+        },
+        {
+            "name": "view/STOInvoiceOutward.view.xml"
+        },
+        {
+            "name": "view/Scanner.fragment.xml"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "localService/metadata.xml"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "neo-app.json"
+        }
+    ]
+}

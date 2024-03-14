@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog id="ROInward" title="Anciliary Inward Serial Number Details">
+		<content>
+			<ScrollContainer horizontal="true" vertical="true">
+			<Table id="myCCDialog" inset="false" items="{path: 'oModel>/'}" class="sapFDynamicPageAlignContent" width="100%" growing="true" growingScrollToLoad="true" mode="None" >
+				<columns>
+				
+					<Column width="auto" class="column">
+						<Label text="Invoice Number" labelFor="input-b" design="Bold" class="header" tooltip="Status"/>
+					</Column>
+				
+					<Column width="auto" class="column">
+						<Label text="Material Code" labelFor="input-b" design="Bold" class="header" tooltip="Status"/>
+					</Column>
+					<Column width="auto" class="column">
+						<Label text="Msterial Descr" labelFor="input-b" design="Bold" class="header" tooltip="Status"/>
+					</Column>
+						<Column width="auto" class="column">
+						<Label text="Serial Number" labelFor="input-b" design="Bold" class="header" tooltip="Status"/>
+					</Column>
+						<Column width="auto" class="column">
+						<Label text="Status" labelFor="input-b" design="Bold" class="header" tooltip="Status"/>
+					</Column>
+					
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier text="{oModel>VendInv}"/>
+							<ObjectIdentifier text="{oModel>Matnr}"/>
+							<ObjectIdentifier text="{oModel>Maktx}"/>
+							<ObjectIdentifier text="{oModel>Sernr}"/>
+							<ObjectIdentifier text="{oModel>Status}"/>
+							<!--<ObjectIdentifier  id="statusIdentifier" text="{path: 'oModel>Status', formatter: '.getStatusCellStyle'}"/>-->
+							<!--<ObjectIdentifier title="" text="{localModel>Sernr}"/>-->
+							<!--<ObjectIdentifier title="" text="{localModel>Sernr}"/>-->
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</ScrollContainer>
+		</content>
+		<endButton>
+			<Button text="Cancel" press="OnPressCancelRO"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

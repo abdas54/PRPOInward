@@ -1,0 +1,279 @@
+<mvc:View controllerName="ZPOROINWARD.controller.STOInvoiceOutward" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:ndc="sap.ndc" xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+	<App>
+		<pages>
+			<Page title="Ancillary Purchase Order Details">
+				<content>
+					<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+						<items>
+							<IconTabFilter id="invoiceDtl" text="PO Details">
+								<l:VerticalLayout  width="100%">
+									<HBox>
+										<Label text="Purchase Order Number" labelFor="input-sn" design="Bold" class="sapUiTinyMargin"/>
+										<Input class="sapUiTinyMarginBegin" maxLength="10" id="idprodord"></Input>
+										<Button text="Go" press="onGoPress" class="sapUiSmallMarginBegin"></Button>
+										<Button class="sapUiSmallMarginBegin" text="Refresh" press="onRefreshPress"/>
+									</HBox>
+								</l:VerticalLayout>
+								<ScrollContainer horizontal="true" vertical="true">
+									<Table id="idProductsTable" inset="false" items="{path: 'lnvPOModel>/PODetails'}" class="sapFDynamicPageAlignContent" width="100%"
+										growing="true" growingScrollToLoad="true" mode="None">
+										<headerToolbar>
+											<OverflowToolbar>
+												<Title text="PO Details" level="H2"/>
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column width="10em" class="column">
+												<Label text="Purchasing Doc." labelFor="input-b" design="Bold" class="header" tooltip="Purchasing Doc."/>
+											</Column>
+											<!--</Column>-->
+											<Column width="10em" class="column">
+												<Label text="PO Date" labelFor="input-b" design="Bold" class="header" tooltip="PO Date"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="PO Item" labelFor="input-b" design="Bold" class="header" tooltip="PO Item"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Supplier Code" labelFor="input-b" design="Bold" class="header" tooltip="Supplier Code"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Vendor Name" labelFor="input-b" design="Bold" class="header" tooltip="Vendor Name"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Material Code" labelFor="input-b" design="Bold" class="header" tooltip="Material Code"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Material Descr" labelFor="input-b" design="Bold" class="header" tooltip="Material Descr"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Plant" labelFor="input-b" design="Bold" class="header" tooltip="Plant"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Stor. Loc." labelFor="input-b" design="Bold" class="header" tooltip="Stor. Loc."/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="PO Quantity" labelFor="input-b" design="Bold" class="header" tooltip="PO Quantity"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Base UOM" labelFor="input-b" design="Bold" class="header" tooltip="Base UOM"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="GR Quantity" labelFor="input-b" design="Bold" class="header" tooltip="GR Quantity"/>
+											</Column>
+											<Column width="10em" class="column">
+												<Label text="Balance Quantity" labelFor="input-b" design="Bold" class="header" tooltip="Balance Quantity"/>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="Scanned Serial" />
+									</Column> -->
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkkoEbeln}"/>
+													<!--<ObjectIdentifier title="" text="{lnvModel>Bedat}"/>-->
+													<Text text="{ path: 'lnvPOModel>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', pattern: 'dd/MM/yyyy' } }"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoEbelp}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkkoLifnr}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>Vname1}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoMatnr}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoTxz01}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoWerks}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoLgort}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoMenge}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>EkpoMeins}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>GrQty}"/>
+													<ObjectIdentifier title="" text="{lnvPOModel>BalQty}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</ScrollContainer>
+								<Panel width="auto" id="invoiceForm" visible="false" >
+									<headerToolbar>
+										<OverflowToolbar>
+											<Title text="Invoice Details"/>
+											<ToolbarSpacer/>
+											<Button text="Display Invoice Details" press="onPressDisplayInvoice"/>
+											<Button text="Ready for Scan" press="onPressReadyScan"/>
+											<Button text="Carry GRN" press="onGRNPress"/>
+										</OverflowToolbar>
+									</headerToolbar>
+									<content>
+										<f:SimpleForm  visible="true" class="formHeader" editable="true" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+											labelSpanS="3" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3">
+											<f:content>
+												<core:Title text="Address"/>
+												<Label text="Vendor Invoice Number"/>
+												<Input required="true" id="vendorInvcNum" change="onVendorInvoiceChange"/>
+												<Label text="Transporter Name"/>
+												<Input required="true" id="trnsprtName" change="onTransportNameChange"></Input>
+												<core:Title text="Contact"/>
+												<Label text="LR Number"/>
+												<Input required="true" id="lrNumber" change="onLRNumberChange"/>
+												<Label text="Invoice Date"/>
+												<DatePicker required="true" id="invDate" valueFormat="dd.MM.YYYY" displayFormat="dd.MM.YYYY" change="onInvoiceDateChange"/>
+												<core:Title text="Contact1"/>
+											</f:content>
+										</f:SimpleForm>
+										<ScrollContainer horizontal="true" vertical="true">
+											<Table id="idInvoiceTable" visible="false" inset="false" items="{path: 'lnvModel>/POInvoiceDetails'}" 
+												width="100%" growing="true" growingScrollToLoad="true" mode="None">
+											
+												<columns>
+													<Column width="10em" class="column">
+														<Label text="Invoice Number" labelFor="input-b" design="Bold" class="header" tooltip="Vendor Invoice Number"/>
+													</Column>
+													<!--</Column>-->
+													<Column width="10em" class="column">
+														<Label text="Invoice Date" labelFor="input-b" design="Bold" class="header" tooltip="Purchasing Doc."/>
+													</Column>
+													<Column width="10em" class="column">
+														<Label text="LR Number" labelFor="input-b" design="Bold" class="header" tooltip="LR Number"/>
+													</Column>
+													<Column width="10em" class="column">
+														<Label text="Transporter Name" labelFor="input-b" design="Bold" class="header" tooltip="Transporter Name"/>
+													</Column>
+													<Column width="10em" class="column">
+														<Label text="Purchase Order" labelFor="input-b" design="Bold" class="header" tooltip="Invoice Date"/>
+													</Column>
+													<Column width="7em" class="column">
+														<Label text="PO Item" labelFor="input-b" design="Bold" class="header" tooltip="PO Item"/>
+													</Column>
+													<Column width="7em" class="column">
+														<Label text="Invoice Qty." labelFor="input-b" design="Bold" class="header" tooltip="Serial Number"/>
+													</Column>
+													<Column width="7em" class="column">
+														<Label text="Verified Qty." labelFor="input-b" design="Bold" class="header" tooltip="Supplier Code"/>
+													</Column>
+													<Column width="7em" class="column">
+														<Label text="Pending Qty." labelFor="input-b" design="Bold" class="header" tooltip="Invoice Quantity"/>
+													</Column>
+													<Column width="10em" class="column">
+														<Label text="Material Code" labelFor="input-b" design="Bold" class="header" tooltip="Material Code"/>
+													</Column>
+													<Column width="15em" class="column">
+														<Label text="Material Description" labelFor="input-b" design="Bold" class="header" tooltip="Material Description"/>
+													</Column>
+													<Column width="10em" class="column">
+														<Label text="" labelFor="input-b" design="Bold" class="header" tooltip=""/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem>
+														<cells>
+															<ObjectIdentifier title="" text="{lnvModel>VendInv}"/>
+															<Text text="{ path: 'lnvModel>Invdt', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', pattern: 'dd/MM/yyyy' } }"/>
+															<ObjectIdentifier title="" text="{lnvModel>Lrno}"/>
+															<ObjectIdentifier title="" text="{lnvModel>Trname}"/>
+															<ObjectIdentifier title="" text="{lnvModel>Ebeln}"/>
+															<!--<ObjectIdentifier title="" text="{lnvModel>Invdt,type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', pattern: 'dd/MM/yyyy' }}"/>-->
+															<ObjectIdentifier title="" text="{lnvModel>Ebelp}"/>
+															<Text text="{lnvModel>Invqty}"/>
+															<ObjectIdentifier title="" text="{lnvModel>VerifiedQty}"/>
+															<ObjectIdentifier title="" text="{lnvModel>PendingQty}"/>
+															<ObjectIdentifier title="" text="{lnvModel>Matnr}"/>
+															<ObjectIdentifier title="" text="{lnvModel>Maktx}"/>
+															<Link text="View" press="getSerialNo"/>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</ScrollContainer>
+									</content>
+								</Panel>
+							</IconTabFilter>
+							<IconTabFilter id="tabScannedSerial" text="Scanned Serial">
+								<l:VerticalLayout class="sapUiContentPadding" width="100%">
+									<Label text="Scanned Serial Count" labelFor="input-sn" design="Bold"/>
+								</l:VerticalLayout>
+								<Table id="idProductsTable1" inset="false" items="{ path: 'localModel>/' }" class="sapFDynamicPageAlignContent" width="auto" mode="Delete"
+									delete="getDelete">
+									<headerToolbar>
+										<OverflowToolbar>
+											<Title text="" level="H2"/>
+											<ToolbarSpacer/>
+										</OverflowToolbar>
+									</headerToolbar>
+									<columns>
+										<Column width="auto" class="column">
+											<Label text="Serial Number" labelFor="input-b" design="Bold" class="header" tooltip="Serial Number"/>
+										</Column>
+										<Column width="auto" class="column">
+											<Label text="Material" labelFor="input-b" design="Bold" class="header" tooltip="Material"/>
+										</Column>
+										<Column width="auto" class="column">
+											<Label text="Material Desc" labelFor="input-b" design="Bold" class="header" tooltip="Material Desc"/>
+										</Column>
+										<!--<Column width="auto" class="column">-->
+										<!--	<Label text="" labelFor="input-b" design="Bold" class="header" tooltip=""/>-->
+										<!--</Column>-->
+										<!--<Column width="auto" class="column">-->
+										<!--	<Label text="" labelFor="input-b" design="Bold" class="header" tooltip=""/>-->
+										<!--</Column>-->
+										<!--<Column width="auto" class="column">-->
+										<!--	<Label text="Delivery" labelFor="input-b" design="Bold" class="header" tooltip="Delivery"/>-->
+										<!--</Column>-->
+										<!--<Column width="auto" class="column">-->
+										<!--	<Label text="Verify count" labelFor="input-b" design="Bold" class="header" tooltip="Serial Number"/>-->
+										<!--</Column>-->
+										<!-- <Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="Scanned Serial" />
+									</Column> -->
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="" text="{localModel>Sernr}"/>
+												<ObjectIdentifier title="" text="{localModel>Matnr}"/>
+												<ObjectIdentifier title="" text="{localModel>Maktx}"/>
+												<!--<Link text="Delete" press="getDelete"/>-->
+												<!--<ObjectIdentifier title="" text="{localModel>Sernr}"/>-->
+												<!--<ObjectIdentifier title="" text="{localModel>Sernr}"/>-->
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+							<IconTabFilter id="tabBarcode" text="Serial Number">
+								<l:VerticalLayout class="sapUiContentPadding" width="100%">
+									<HBox >
+										<Button text="Barcode Scan" class="sapUiMediumMarginTop sapUiMediumMarginBottom sapUiMediumMarginRight" press="onScannerBtnPress"
+											icon="sap-icon://bar-code" width="17rem"/>
+										<!--       <ndc:BarcodeScannerButton-->
+										<!--	id="sampleBarcodeScannerButton"-->
+										<!--	scanSuccess="onScanSuccess"-->
+										<!--	scanFail="onScanError"-->
+										<!--	inputLiveUpdate="onScanLiveupdate"-->
+										<!--	dialogTitle="Barcode Scanner"-->
+										<!--/>-->
+									</HBox>
+									<HBox class="sapUiTinyMarginTop">
+										<Label text="Last Scan Result:"/>
+										<Text id="sampleBarcodeScannerResult" text="" class="sapUiTinyMarginBegin"/>
+									</HBox>
+									<VBox>
+										<HBox class="sapUiTinyMarginTop">
+											<Label text="Serial No :"/>
+											<Text text="{mModel>/Sernr}" class="sapUiTinyMarginBegin"/>
+										</HBox>
+										<HBox class="sapUiTinyMarginTop">
+											<Label text="Material :"/>
+											<Text text="{mModel>/Matnr}" class="sapUiTinyMarginBegin"/>
+										</HBox>
+										<HBox class="sapUiTinyMarginTop">
+											<Label text="Material Desc :"/>
+											<Text text="{mModel>/Maktx}" class="sapUiTinyMarginBegin"/>
+										</HBox>
+									</VBox>
+								</l:VerticalLayout>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

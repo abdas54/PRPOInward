@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout"
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<TableSelectDialog contentWidth="60%" contentHeight="60%" id="myCCDialog" noDataText="{i18n>txt_noccfound}" growingThreshold="100"
+		title="{i18n>txt_selectCCNo}" search=".handleCCSearch" items="{ path : 'oModel>/' }" confirm="onRowSelect">
+		<ColumnListItem>
+			<cells>
+				<Text text="{oModel>Matnr}"/>
+				<Text text="{oModel>Maktx}"/>
+				<Text text="{oModel>Sernr}"/>
+				<Text text="{oModel>Status}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column>
+				<header>
+					<Text text="Material"/>
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Material Descr"/>
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Serial Number"/>
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Status"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

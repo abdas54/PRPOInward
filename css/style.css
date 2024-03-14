@@ -1,0 +1,9 @@
+/* Enter your custom styles here */
+/* Custom CSS to disable row selection and prevent hand cursor on hover */
+.unverifiedRow {
+    background-color: red; /* Set background color to red for unverified rows */
+   
+}
+.formHeader .sapUiFormContainerTitle .sapUiFormTitle{
+    display:none;
+}
